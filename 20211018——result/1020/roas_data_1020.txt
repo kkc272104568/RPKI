@@ -1,0 +1,5 @@
+ROA types	ROA with 1 prefixe	ROA with 2~10 prefixes	ROA with 11~50 prefixes	ROA with 51~100 prefixes	ROA with >100 prefixes	Total
+The number of ROAs	           66379	           17918	            2508	             272	             257	           87334
+The ratio with ROAs	          76.01%	          20.52%	           2.87%	           0.31%	           0.29%	         100.00%
+The number of prefixes	           66379	           65744	           51904	           18475	           79302	          281804
+The ratio with prefixes	          23.56%	          23.33%	          18.42%	           6.56%	          28.14%	         100.00%
