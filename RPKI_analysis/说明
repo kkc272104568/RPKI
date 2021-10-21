@@ -1,0 +1,15 @@
+字段说明
+
+ca 发布机构
+asn_nums  ASN 数量
+prefix_nums 	ip前缀总数
+prefix_drop_duplicates 	去重后 ip前缀总数
+max_prefix 	最大前缀数
+max_prefix_asn  最大前缀 roa 对应ASN 名称
+max_lifetime roa 最长寿命（单位 天）
+max_lifetime_asn 最长寿命roa对应ASN名称
+min_lifetime roa 最短寿命（单位 天）
+min_lifetime_asn 最短寿命roa 对应ASN名称
+average_prefix roa平均前缀数
+average_lifetime roa平均寿命 （单位 天）
+
