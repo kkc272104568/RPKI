@@ -7,7 +7,7 @@ import numpy as np
 from numpy import sort
 from pandas import DataFrame
 
-file_path = r"F:\博1 课程\TC3WG2工作组\RPKI\20211020"
+file_path = r"F:\博1 课程\TC3WG2工作组\RPKI_job\20211018"
 
 
 def file_info(file_dir):
@@ -28,9 +28,8 @@ def file_read(file_name):
 
 def save_to_excel(date):
     """数据存储至excel"""
-    date.to_excel("result_20211018.xls", index=False,sheet_name="result")
+    date.to_excel("result_20211018_1.xls", index=False, sheet_name="result")
     
-
 
 def main_fun():
     """主函数"""
@@ -46,8 +45,9 @@ def main_fun():
         base_info["ca"] = names_list[_]
         base_info["asn_nums"] = len(pd_info["ASN"].drop_duplicates())
         base_info["prefix_nums"] = len(pd_info["ASN"])
-        base_info["prefix_drop_duplicates"] = len(pd_info["IP Prefix"].drop_duplicates())
-        base_info["max_prefix"] = Counter(pd_info["ASN"]).most_common(1)[0][1]
+        base_info["roa_nums"] = len(pd_info["URI"].drop_duplicates())  # roa 数量
+        base_info["max_prefix"] = Counter(pd_info["URI"]).most_common(1)[0][1]
+        print(Counter(pd_info["URI"]).most_common())
         base_info["max_prefix_asn"] = Counter(pd_info["ASN"]).most_common(1)[0][0]
         pd_info["day_span"] = pd.to_datetime(pd_info["Not After"])-pd.to_datetime(pd_info["Not Before"])
         pd_info["day_span"] = pd_info['day_span'].map(lambda x: x/np.timedelta64(1, 'D'))
@@ -56,8 +56,8 @@ def main_fun():
         base_info["max_lifetime_asn"] = pd_info["ASN"].values[0]
         base_info["min_lifetime"] = int(pd_info["day_span"].values[-1])
         base_info["min_lifetime_asn"] = pd_info["ASN"].values[-1]
-        base_info["average_prefix"] = base_info["prefix_nums"]/base_info["asn_nums"]
-        base_info["average_lifetime"] = pd_info["day_span"].mean()
+        base_info["average_prefix"] = format(base_info["prefix_nums"]/base_info["roa_nums"], '.2f')
+        base_info["average_lifetime"] = format(pd_info["day_span"].mean(), '.2f')
 
         # 各州信息汇总
         data_df = pd.DataFrame(base_info, index=[_])
@@ -83,9 +83,9 @@ def main_fun():
     total_info["ca"] = "total"
     total_info["asn_nums"] = len(total_pd["ASN"].drop_duplicates())
     total_info["prefix_nums"] = len(total_pd["ASN"])
-    total_info["prefix_drop_duplicates"] = len(total_pd["IP Prefix"].drop_duplicates())
-    total_info["average_prefix"] = total_info["prefix_nums"] / total_info["asn_nums"]
-    total_info["average_lifetime"] = total_pd["day_span"].mean()
+    total_info["roa_nums"] = len(total_pd["URI"].drop_duplicates())
+    total_info["average_prefix"] = format(total_info["prefix_nums"] / total_info["roa_nums"], '.2f')
+    total_info["average_lifetime"] = format(total_pd["day_span"].mean(), '.2f')
 
     total_info = pd.DataFrame(total_info, index=[5])
     total_df = pd.concat([total_df, total_info])
